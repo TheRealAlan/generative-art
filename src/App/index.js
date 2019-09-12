@@ -1,50 +1,37 @@
-import React from 'react';
-import P5Wrapper from 'react-p5-wrapper';
+import React, { useState } from 'react';
+import Loadable from 'react-loadable';
 
 import './App.css';
 
+let Module = null;
+
 function App() {
+  const availableWorks = ['Cube', 'PointsLines'];
+  const [active, setActive] = useState(null);
 
-  /**
-   * Just a test to get P5 and the wrapper up and running
-   */
+  const handleModule = (name) => {
+    setActive(name);
 
-  let rotation = null;
-
-  const convertRotation = (rotation) => {
-    return (rotation * Math.PI) / 180;
-  };
-
-  const handleRotation = (e) => {
-    rotation = convertRotation(e.target.value);
-  };
-
-  const sketch = (p) => {
-    p.setup = () => {
-      p.createCanvas(window.innerWidth, 400, p.WEBGL);
-    };
-
-    p.myCustomRedrawAccordingToNewPropsHandler = (props) => {
-      if (props.rotation !== null) {
-        rotation = convertRotation(props.rotation);
-      }
-    };
-
-    p.draw = () => {
-      p.background(100);
-      p.normalMaterial();
-      p.noStroke();
-      p.push();
-      p.rotateY(rotation);
-      p.box(100);
-      p.pop();
-    };
+    Module = Loadable({
+      loader: () => import(`works/${name}`),
+      loading: () => <div>Loading {name}...</div>,
+    });
   };
 
   return (
     <div className="App">
-      <P5Wrapper sketch={sketch} rotation={45} />
-      <input type="range" min={0} max={360} onChange={handleRotation} />
+      {active ? <Module /> : <div>No work loaded.</div>}
+      <ul>
+        {availableWorks.map((name, idx) => (
+          <li
+            key={idx}
+            onClick={() => handleModule(name)}
+            className={active === name ? 'is-active' : ''}
+          >
+            {name}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
