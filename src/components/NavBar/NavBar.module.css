@@ -1,0 +1,27 @@
+.root {
+  background-color: #222;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 6px;
+  transition: opacity 0.3s linear;
+  opacity: 0;
+  z-index: 1;
+}
+
+.root:hover,
+.root.isVisible {
+  opacity: 1;
+}
+
+.fullscreenButton {
+  align-self: flex-start;
+}
+
+.menuButton {
+  align-self: flex-end;
+}

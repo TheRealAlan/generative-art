@@ -1,0 +1,53 @@
+/* Global Styles */
+
+.root {
+  position: relative;
+  transition: filter 0.5s linear;
+  filter: blur(0px);
+}
+
+.root.isBlurred {
+  filter: blur(7px);
+}
+
+.menuRoot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #22222299;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu {
+  margin: 0;
+  padding: 0;
+}
+
+.menuItem {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.menuButton {
+  font-size: 36px;
+}
+
+.menuButton.isActive {
+  opacity: 1;
+}
+
+.menuCloseButton {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
